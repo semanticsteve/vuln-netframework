@@ -1,0 +1,36 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# This workflow file requires a free account on Semgrep.dev to
+# manage rules, file ignores, notifications, and more.
+#
+# See https://semgrep.dev/docs
+
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "master" ]
+  schedule:
+    - cron: '35 0 * * 1'
+
+permissions:
+  contents: read
+
+name: Semgrep
+jobs:
+  semgrep:
+    name: semgrep/ci
+    runs-on: ubuntu-20.04
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    container:
+      image: returntocorp/semgrep
+    steps:
+    - uses: actions/checkout@v3
+    - run: semgrep ci
+        if: always()
