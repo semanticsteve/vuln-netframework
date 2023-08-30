@@ -9,14 +9,15 @@
 # See https://semgrep.dev/docs
 
 
+## triggers
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "master" ]
+    branches: [ "main" ]
   schedule:
-    - cron: '35 0 * * 1'
+    - cron: '43 9 * * 3'
 
 permissions:
   contents: read
@@ -33,4 +34,3 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: semgrep ci
-        if: always()
